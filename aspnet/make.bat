@@ -1,4 +1,5 @@
 @ECHO OFF
+@ECHO Change HERE !
 
 REM Command file for Sphinx documentation
 
