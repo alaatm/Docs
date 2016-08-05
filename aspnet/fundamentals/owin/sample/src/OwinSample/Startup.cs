@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.Framework.DependencyInjection;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace OwinSample
 {
@@ -28,7 +28,7 @@ namespace OwinSample
             string responseText = "Hello World via OWIN";
             byte[] responseBytes = Encoding.UTF8.GetBytes(responseText);
 
-            // OWIN Environment Keys: http://owin.org/spec/owin-1.0.0.html
+            // OWIN Environment Keys: http://owin.org/spec/spec/owin-1.0.0.html
             var responseStream = (Stream)environment["owin.ResponseBody"];
             var responseHeaders = (IDictionary<string, string[]>)environment["owin.ResponseHeaders"];
 

@@ -5,24 +5,20 @@ Fundamentals
     :titlesonly:
 
     startup
-    http-abstractions
     middleware
     static-files
-    localization 
-    file-system
     routing
+    error-handling
+    localization
     configuration
-    dependency-injection
-    diagnostics
-    application-insights
     logging
-    app-state
+    file-providers
+    dependency-injection
     environments
-    websockets
-    caching
-    distributed-cache
-    request-features
-    servers
-    owin
     hosting
+    app-state
+    servers
+    request-features
+    owin
+    choosing-the-right-dotnet
 

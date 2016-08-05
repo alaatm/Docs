@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.OptionsModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using UsingOptions.Models;
+
+// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace UsingOptions.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IOptions<MyOptions> _optionsAccessor;
+
         public HomeController(IOptions<MyOptions> optionsAccessor)
         {
-            Options = optionsAccessor.Options;
+            _optionsAccessor = optionsAccessor;
         }
 
-        MyOptions Options { get; }
-
-        public IActionResult Index()
-        {
-            return View(Options);
-        }
+        // GET: /<controller>/
+        public IActionResult Index() => View(_optionsAccessor.Value);
     }
 }

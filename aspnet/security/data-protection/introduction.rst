@@ -1,9 +1,9 @@
-Introduction
-^^^^^^^^^^^^
+Introduction to Data Protection
+===============================
 
-Web applications often need to store security-sensitive data. Windows provides DPAPI for desktop applications but this is unsuitable for web applications. The ASP.NET data protection stack provide a simple, easy to use cryptographic API a developer can use to protect data, including key management and rotation.
+Web applications often need to store security-sensitive data. Windows provides DPAPI for desktop applications but this is unsuitable for web applications. The ASP.NET Core data protection stack provide a simple, easy to use cryptographic API a developer can use to protect data, including key management and rotation.
 
-The ASP.NET 5 data protection stack is designed to serve as the long-term replacement for the <machineKey> element in ASP.NET 1.x - 4.x. It was designed to address many of the shortcomings of the old cryptographic stack while providing an out-of-the-box solution for the majority of use cases modern applications are likely to encounter.
+The ASP.NET Core data protection stack is designed to serve as the long-term replacement for the <machineKey> element in ASP.NET 1.x - 4.x. It was designed to address many of the shortcomings of the old cryptographic stack while providing an out-of-the-box solution for the majority of use cases modern applications are likely to encounter.
 
 Problem statement
 -----------------
@@ -32,7 +32,7 @@ We started by identifying problems with the existing stack. Once we had that, we
 
 With these principles in mind we developed a simple, :doc:`easy to use <using-data-protection>` data protection stack.
 
-The ASP.NET 5 data protection APIs are not primarily intended for indefinite persistence of confidential payloads. Other technologies like `Windows CNG DPAPI <https://msdn.microsoft.com/en-us/library/windows/desktop/hh706794%28v=vs.85%29.aspx>`_ and `Azure Rights Management <https://technet.microsoft.com/en-us/library/jj585024.aspx>`_ are more suited to the scenario of indefinite storage, and they have correspondingly strong key management capabilities. That said, there is nothing prohibiting a developer from using the ASP.NET 5 data protection APIs for long-term protection of confidential data.
+The ASP.NET Core data protection APIs are not primarily intended for indefinite persistence of confidential payloads. Other technologies like `Windows CNG DPAPI <https://msdn.microsoft.com/en-us/library/windows/desktop/hh706794%28v=vs.85%29.aspx>`_ and `Azure Rights Management <https://technet.microsoft.com/en-us/library/jj585024.aspx>`_ are more suited to the scenario of indefinite storage, and they have correspondingly strong key management capabilities. That said, there is nothing prohibiting a developer from using the ASP.NET Core data protection APIs for long-term protection of confidential data.
 
 Audience
 --------
@@ -55,10 +55,10 @@ Package Layout
 --------------
 The data protection stack consists of five packages.
 
-* Microsoft.AspNet.DataProtection.Interfaces contains the basic IDataProtectionProvider and IDataProtector interfaces. It also contains useful extension methods that can assist working with these types (e.g., overloads of IDataProtector.Protect). See the consumer interfaces section for more information.
-  If somebody else is responsible for instantiating the data protection system and you are simply consuming the APIs, you'll want to reference Microsoft.AspNet.DataProtection.Interfaces.
-* Microsoft.AspNet.DataProtection contains the core implementation of the data protection system, including the core cryptographic operations, key management, configuration, and extensibility.
-  If you're responsible for instantiating the data protection system (e.g., adding it to an IServiceCollection) or modifying or extending its behavior, you'll want to reference Microsoft.AspNet.DataProtection.
-* Microsoft.AspNet.DataProtection.Extensions contains additional APIs which developers might find useful but which don't belong in the core package. For instance, this package contains a simple "instantiate the system pointing at a specific key storage directory with no dependency injection setup" API (more info). It also contains extension methods for limiting the lifetime of protected payloads (more info).
-* Microsoft.AspNet.DataProtection.SystemWeb can be installed into an existing ASP.NET 4.x application to redirect its <machineKey> operations to instead use the new data protection stack. See :ref:`compatibility <compatibility-replacing-machinekey>` for more information.
-* Microsoft.AspNet.Cryptography.KeyDerivation provides an implementation of the PBKDF2 password hashing routine and can be used by systems which need to handle user passwords securely. See :doc:`consumer-apis/password-hashing` for more information.
+* Microsoft.AspNetCore.DataProtection.Abstractions contains the basic IDataProtectionProvider and IDataProtector interfaces. It also contains useful extension methods that can assist working with these types (e.g., overloads of IDataProtector.Protect). See the consumer interfaces section for more information.
+  If somebody else is responsible for instantiating the data protection system and you are simply consuming the APIs, you'll want to reference Microsoft.AspNetCore.DataProtection.Abstractions.
+* Microsoft.AspNetCore.DataProtection contains the core implementation of the data protection system, including the core cryptographic operations, key management, configuration, and extensibility.
+  If you're responsible for instantiating the data protection system (e.g., adding it to an IServiceCollection) or modifying or extending its behavior, you'll want to reference Microsoft.AspNetCore.DataProtection.
+* Microsoft.AspNetCore.DataProtection.Extensions contains additional APIs which developers might find useful but which don't belong in the core package. For instance, this package contains a simple "instantiate the system pointing at a specific key storage directory with no dependency injection setup" API (more info). It also contains extension methods for limiting the lifetime of protected payloads (more info).
+* Microsoft.AspNetCore.DataProtection.SystemWeb can be installed into an existing ASP.NET 4.x application to redirect its <machineKey> operations to instead use the new data protection stack. See :ref:`compatibility <compatibility-replacing-machinekey>` for more information.
+* Microsoft.AspNetCore.Cryptography.KeyDerivation provides an implementation of the PBKDF2 password hashing routine and can be used by systems which need to handle user passwords securely. See :doc:`consumer-apis/password-hashing` for more information.

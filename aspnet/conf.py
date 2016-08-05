@@ -15,6 +15,7 @@
 
 import sys
 import os
+import datetime
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -29,9 +30,12 @@ import os
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+sys.path.append(os.path.abspath('ext'))
+
 extensions = [
-    'sphinx.ext.intersphinx'
-]
+    'sphinx.ext.intersphinx',
+    'sphinxcontrib.dotnetdomain',
+    'versionwarning']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates', '../common/_templates']
@@ -47,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'ASP.NET'
-copyright = '2015, Microsoft'
+copyright = str(datetime.date.today().year) + ', Microsoft'
 author = 'Microsoft'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -55,7 +59,7 @@ author = 'Microsoft'
 # built documents.
 #
 # The short X.Y version.
-# version = '0.0.1'
+version = '1.0.0'
 # The full version, including alpha/beta/rc tags.
 # release = '0.0.1'
 
@@ -99,6 +103,13 @@ pygments_style = 'sphinx'
 
 rst_epilog = """
 .. include:: /../common/authors.txt
+.. _.NET Core: https://microsoft.com/net/core
+.. _Visual Studio: https://www.visualstudio.com
+.. _Visual Studio Code: https://code.visualstudio.com
+.. _Entity Framework Core: https://docs.efproject.net
+.. _NuGet: https://nuget.org
+.. _xUnit: https://xunit.github.io
+.. _Dependency Injection: :doc:`</fundamentals/dependency-injection>`
 """
 
 # -- Options for HTML output ----------------------------------------------
@@ -126,10 +137,11 @@ else:
     feed_author = 'Microsoft'
 
 def setup(app):
-    app.add_stylesheet('custom.css?v=1')
-#    app.add_javascript('helpfulness.js')
+    app.add_stylesheet('custom.css?v=6')
+    app.add_javascript('helpfulness.js?v=6')
+    app.add_javascript('disqus.js?v=6')
     if on_rtd:
-        app.add_javascript('wedc.js')
+        app.add_javascript('wedc.js?v=6')
 
 #html_theme = 'default'
 
@@ -229,7 +241,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'aspnet.tex', 'ASP.NET 5 Documentation',
+  ('index', 'aspnet.tex', 'ASP.NET Core 1.0 Documentation',
    'Microsoft', 'manual'),
 ]
 
@@ -259,7 +271,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'aspnet', 'ASP.NET 5 Documentation',
+    ('index', 'aspnet', 'ASP.NET Core 1.0 Documentation',
      ['Microsoft'], 1)
 ]
 
@@ -273,8 +285,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'aspnet', 'ASP.NET 5 Documentation',
-   'Microsoft', 'aspnet', 'ASP.NET 5 Documentation',
+  ('index', 'aspnet', 'ASP.NET Core 1.0 Documentation',
+   'Microsoft', 'aspnet', 'ASP.NET Core 1.0 Documentation',
    '.NET Development'),
 ]
 
@@ -362,8 +374,7 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'mvc': ('http://docs.asp.net/projects/mvc/en/latest', 'mvc.inv'),
-    'dotnet': ('http://dotnet.readthedocs.org/en/latest', 'dotnet.inv')
+    'api': ('http://docs.asp.net/projects/api/en/latest', '../common/api.inv')
 }
 
-
+versionwarning_console = False

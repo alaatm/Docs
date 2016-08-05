@@ -16,6 +16,7 @@
 import sys
 import os
 import shlex
+import datetime
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -50,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'ASP.NET WebHooks'
-copyright = '2015, Microsoft'
+copyright = str(datetime.date.today().year) + ', Microsoft'
 author = 'Microsoft'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -125,10 +126,13 @@ if not on_rtd:
 	import sphinx_rtd_theme
 	html_theme = 'sphinx_rtd_theme'
 	html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-	
+
 def setup(app):
-	app.add_stylesheet('custom.css')	
-	app.add_javascript('wedc.js')
+    app.add_stylesheet('custom.css?v=4')
+    app.add_javascript('helpfulness.js?v=4')
+    app.add_javascript('disqus.js')
+    if on_rtd:
+        app.add_javascript('wedc.js?v=4')
 
 #html_theme = 'default'
 

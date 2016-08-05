@@ -5,17 +5,12 @@
 
 .. _index:
 
-ASP.NET 5 Documentation
-=======================
+ASP.NET Core Documentation
+==========================
 
-.. attention:: ASP.NET 5 RC1 is now available! Please see the :doc:`Getting Started <getting-started/index>` instructions for installing the latest version.
+.. attention:: ASP.NET 5 has been renamed to ASP.NET Core 1.0. Read `more <https://blogs.msdn.microsoft.com/webdev/2016/02/01/an-update-on-asp-net-core-and-net-core/>`_.
 
 .. include:: ../common/stub-overview.txt
-
-Frameworks
-----------
-
-* :ref:`MVC <mvc:index>`
 
 Topics
 ------
@@ -23,26 +18,30 @@ Topics
 .. toctree::
     :titlesonly:
 
-    getting-started/index
+    Introduction <intro>
+    getting-started
+    Release notes <https://github.com/aspnet/home/releases>
     tutorials/index
-    conceptual-overview/index
     fundamentals/index
+    mvc/index
     testing/index
-    dnx/index
-    frameworks/index
     data/index
-    publishing/index
     client-side/index
     mobile/index
+    publishing/index
+    hosting/index
     security/index
     performance/index
     migration/index
+    API <https://docs.asp.net/projects/api>
     contribute/index
+
 
 Related Resources
 -----------------
 
-* :ref:`.NET Core Documentation <dotnet:index>`
-* `Entity Framework <http://docs.efproject.net>`_
+* `.NET Core`_
+* `Entity Framework Core`_
+* `WebHooks <http://docs.asp.net/projects/aspnetwebhooks>`_
 
 .. include:: ../common/contribute.txt

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Logging;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace MiddlewareSample
 {
@@ -72,7 +72,7 @@ namespace MiddlewareSample
 
         public void ConfigureEnvironmentTwo(IApplicationBuilder app)
         {
-            app.Use(next => async context =>
+            app.Use(async (context, next) =>
             {
                 await context.Response.WriteAsync("Hello from " + _environment);
             });

@@ -1,16 +1,17 @@
+﻿:version: 1.0.0-rc1
+
 Using Angular for Single Page Applications (SPAs)
 =================================================
-By `Venkata Koppaka`_, `Scott Addie`_
+
+By `Venkata Koppaka`_ and `Scott Addie`_
 
 In this article, you will learn how to build a SPA-style ASP.NET application using AngularJS.
 
-In this article:
-  - `What is AngularJS?`_
-  - `Getting Started`_
-  - `Key Components`_
-  - `Angular 2.0`_
+.. contents:: Sections:
+  :local:
+  :depth: 1
   
-`View this article's samples on GitHub <https://github.com/aspnet/Docs/tree/master/aspnet/client-side/angular/sample>`_.
+`View or download sample code <https://github.com/aspnet/Docs/tree/master/aspnet/client-side/angular/sample>`__
 
 What is AngularJS?
 ------------------
@@ -19,7 +20,7 @@ What is AngularJS?
 
 AngularJS is not a DOM manipulation library like jQuery, but it uses a subset of jQuery called jQLite. AngularJS is primarily based on declarative HTML attributes that you can add to your HTML tags. You can try AngularJS in your browser using the `Code School website <http://campus.codeschool.com/courses/shaping-up-with-angular-js/intro>`_.
 
-Version 1.4.x is the current stable version and the Angular team is working towards a big rewrite of AngularJS for V2.0 which is currently still in development. This article focuses on Angular 1.X with some notes on where Angular is heading with 2.0.
+This article focuses on Angular 1.X with some notes on where Angular is heading with 2.0.
 
 Getting Started
 ---------------
@@ -29,7 +30,7 @@ To start using AngularJS in your ASP.NET application, you must either install it
 Installation
 ^^^^^^^^^^^^
 
-There are several ways to add AngularJS to your application. If you’re starting a new ASP.NET 5 web application in Visual Studio 2015, you can add AngularJS using the built-in :ref:`Bower <bower-index>` support. Simply open ``bower.json``, and add an entry to the ``dependencies`` property:
+There are several ways to add AngularJS to your application. If you’re starting a new ASP.NET Core web application in Visual Studio, you can add AngularJS using the built-in :ref:`Bower <bower-index>` support. Simply open ``bower.json``, and add an entry to the ``dependencies`` property:
 
 .. _angular-bower-json:
 
@@ -64,7 +65,7 @@ Once you have a reference to the angular.js script file, you're ready to begin u
 Key Components
 --------------
 
-AngularJS includes a number of major components, such as *directives*, *templates*, *repeaters*, *modules*, *controllers*, and more. Let's examine how these components work together to add behavior to your web pages.
+AngularJS includes a number of major components, such as *directives*, *templates*, *repeaters*, *modules*, *controllers*, *components*, *component router* and more. Let's examine how these components work together to add behavior to your web pages.
 
 Directives
 ^^^^^^^^^^
@@ -97,7 +98,7 @@ Other primitive directives in AngularJS include:
   Used to initialize the application data in the form of an expression for the current scope.
 
 ``ng-if``
-  If clause used within your AngularJS application; usually used with an expression.
+  Removes or recreates the given HTML element in the DOM based on the truthiness of the expression provided.
 
 ``ng-repeat``
   Repeats a given block of HTML over a set of data.
@@ -272,6 +273,37 @@ The page shows "Mary" and "Jane" that correspond to the ``firstName`` and ``last
 
 .. image:: angular/_static/controllers.png
 
+Components
+^^^^^^^^^^
+`Components <https://docs.angularjs.org/guide/component>`_ in Angular 1.5.x allow for the encapsulation and capability of creating individual HTML elements. In Angular 1.4.x you could achieve the same feature using the .directive() method.
+
+By using the .component() method, development is simplified gaining the functionality of the directive and the controller. Other benefits include; scope isolation, best practices are inherent, and migration to Angular 2 becomes an easier task.
+The ``<module name>.component()`` function call is used to create and register components in AngularJS.
+
+Below is a snippet of code that registers a new component. The ``personApp`` variable in the snippet references an Angular module, which is defined on line 2.
+
+.. literalinclude:: angular/sample/AngularSample/src/AngularSample/wwwroot/app/components.js
+  :language: javascript
+  :linenos:
+  :emphasize-lines: 2,5,13
+
+The view where we are displaying the custom HTML element.
+
+.. literalinclude:: angular/sample/AngularSample/src/AngularSample/Views/Home/Components.cshtml
+  :language: html
+  :linenos:
+  :emphasize-lines: 8
+  
+The associated template used by component: 
+
+.. literalinclude:: angular/sample/AngularSample/src/AngularSample/wwwroot/app/partials/personcomponent.html
+  :language: html
+  :linenos:
+  :emphasize-lines: 2,3
+
+The page shows "Aftab" and "Ansari" that correspond to the ``firstName`` and ``lastName`` properties attached to the ``vm`` object:
+
+.. image:: angular/_static/components.png  
 
 Services
 ^^^^^^^^
@@ -296,7 +328,7 @@ To call this factory from the controller, pass ``personFactory`` as a parameter 
 Using services to talk to a REST endpoint
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Below is an end-to-end example using services in AngularJS to interact with an ASP.NET 5 Web API endpoint. The example gets data from the Web API and displays the data in a view template. Let's start with the view first: 
+Below is an end-to-end example using services in AngularJS to interact with an ASP.NET Core Web API endpoint. The example gets data from the Web API and displays the data in a view template. Let's start with the view first: 
 
 .. literalinclude:: angular/sample/AngularSample/src/AngularSample/Views/People/Index.cshtml
   :language: html
@@ -326,7 +358,7 @@ In ``personController.js``, we are calling the module’s ``controller`` method 
   :linenos:
   :emphasize-lines: 6-7,13
 
-Let's take a quick look at the ASP.NET 5 Web API and the model behind it. The ``Person`` model is a POCO (Plain Old CLR Object) with ``Id``, ``FirstName``, and ``LastName`` properties:
+Let's take a quick look at the Web API and the model behind it. The ``Person`` model is a POCO (Plain Old CLR Object) with ``Id``, ``FirstName``, and ``LastName`` properties:
 
 .. literalinclude:: angular/sample/AngularSample/src/AngularSample/Models/Person.cs
   :language: csharp
@@ -440,16 +472,6 @@ The running example demonstrates that the controller's ``sayName`` function is c
 .. image:: angular/_static/events.png
 
 For more detail on AngularJS built-in event handler directives, be sure to head to the `documentation website <https://docs.angularjs.org/api/ng/directive/ngClick>`_ of AngularJS.
-
-Angular 2.0
------------
-
-Angular 2.0 is the next version of AngularJS, which is completely reimagined with ES6 and mobile in mind. It's built using Microsoft's TypeScript language. Angular 2.0 is currently an alpha-phase product and is expected to be released in early 2016. Several breaking changes will be introduced in the Angular 2.0 release, so the Angular team is working hard to provide guidance to developers. A migration path will become more clear as the release date approaches. If you wish to play with Angular 2.0 now, the Angular team has created `Angular.io <http://angular.io>`_ to show their progress, to provide early documentation, and to gather feedback. 
-
-Summary
--------
-
-This article provides an overview of AngularJS for ASP.NET developers. It aims to help developers who are new to this SPA framework get up-to-speed quickly.
 
 Related Resources
 -----------------

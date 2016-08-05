@@ -3,7 +3,11 @@ Migration
 
 .. toctree::
    :titlesonly:
-   
-   identity
-   http-modules
 
+   mvc
+   configuration
+   identity
+   webapi
+   http-modules
+   rc1-to-rtm
+   rc2-to-rtm
